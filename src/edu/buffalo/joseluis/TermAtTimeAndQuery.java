@@ -1,4 +1,14 @@
 package edu.buffalo.joseluis;
 
-public class TermAtTimeAndQuery {
+import java.util.List;
+
+public class TermAtTimeAndQuery extends QueryRunner {
+    public TermAtTimeAndQuery(InvertedIndex index) {
+        super(index);
+    }
+
+    @Override
+    public void Query(List<String> terms) {
+
+    }
 }

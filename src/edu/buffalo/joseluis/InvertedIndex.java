@@ -23,11 +23,12 @@ public class InvertedIndex {
     }
 
     public void update(String term, String field) {
-        index.putIfAbsent(new IndexedTerm(term,field), new LinkedList<>());
+        index.putIfAbsent(new IndexedTerm(field,term), new LinkedList<>());
     }
 
     public void update(String term, String field, int docid) {
-        IndexedTerm key = new IndexedTerm(term,field);
+        IndexedTerm key = new IndexedTerm(field,term);
         index.computeIfPresent(key, (K, V) -> { V.add(docid); return V; });
+
     }
 }

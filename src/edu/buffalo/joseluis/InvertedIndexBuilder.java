@@ -9,7 +9,11 @@ import org.apache.lucene.util.BytesRef;
 import java.io.IOException;
 import java.net.URI;
 import java.nio.file.Paths;
+import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class InvertedIndexBuilder {
 
@@ -18,6 +22,27 @@ public class InvertedIndexBuilder {
         IndexReader reader = DirectoryReader.open(indexDirectory);
 
         InvertedIndex invertedIndex = build(reader);
+        /*InvertedIndex newInvertedIndex = new InvertedIndex();
+
+        String universal_lang = "universal_lang";
+
+
+
+        for(IndexedTerm indexedTerm : invertedIndex.getIndex().keySet()) {
+            LinkedList<Integer> currentDocs = invertedIndex.getIndex().get(indexedTerm);
+
+            IndexedTerm newTerm = new IndexedTerm(universal_lang, indexedTerm.getTerm());
+
+            newInvertedIndex.getIndex().put(
+                    newTerm,
+                    newInvertedIndex.getIndex().merge(newTerm, currentDocs,
+                            (l1, l2) -> Stream.of(l1, l2)
+                                    .flatMap(Collection::stream)
+                                    .collect(Collectors.toCollection(LinkedList::new)))
+            );
+
+
+        }*/
 
 
         return invertedIndex;

@@ -1,9 +1,11 @@
 package edu.buffalo.joseluis;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -12,12 +14,34 @@ public class Main {
         String path = "file:///Users/necronet/Documents/repos/IR-535/project2/index";
         InvertedIndex invertedIndex = InvertedIndexBuilder.build(path);
 
+
+        /*for(IndexedTerm invertedIndexSet : invertedIndex.getIndex().keySet()) {
+            boolean sorted = invertedIndex.getIndex().get(invertedIndexSet)
+                    .stream()
+                    .sorted()
+                    .collect(Collectors.toList()).equals(invertedIndex.getIndex().get(invertedIndexSet));
+            if(!sorted) {
+                System.err.println("Not sorted properly");
+                System.exit(1);
+            }
+        }*/
+
         String outputFile = "output.txt";
         String inputFile = "input.txt";
 
-        List<String[]> terms = TermsLoader.load(inputFile);
+        List<LocalTerms> terms = TermsLoader.load(inputFile);
 
-        QueryRunner runner = new PostinListQuery(invertedIndex);
+        PostingList runner = new PostingList(invertedIndex);
+
+
+        for(LocalTerms term : terms){
+
+            Map<String, LinkedList<Integer>> postingList = runner.get(term);
+            LogPrinter.printPostingList(postingList);
+        }
+
+
+        /*
         List<String> queryTerm = new ArrayList<>();
         for(String[] termArray : terms) {
             for(String term : termArray){
@@ -26,13 +50,9 @@ public class Main {
                 queryTerm.clear();
             }
 
-        }
-
-
-
-
-
+        }*/
 
 
     }
 }
+

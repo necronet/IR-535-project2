@@ -3,10 +3,8 @@ package edu.buffalo.joseluis;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
-import java.util.Objects;
 
 public class InvertedIndex {
-
 
     private Map<IndexedTerm, LinkedList<Integer>> index;
 
@@ -22,6 +20,10 @@ public class InvertedIndex {
         return index;
     }
 
+    public void setIndex(Map<IndexedTerm,LinkedList<Integer>> index) {
+        this.index = index;
+    }
+
     public void update(String term, String field) {
         index.putIfAbsent(new IndexedTerm(field,term), new LinkedList<>());
     }
@@ -29,6 +31,8 @@ public class InvertedIndex {
     public void update(String term, String field, int docid) {
         IndexedTerm key = new IndexedTerm(field,term);
         index.computeIfPresent(key, (K, V) -> { V.add(docid); return V; });
-
     }
+
+
+
 }

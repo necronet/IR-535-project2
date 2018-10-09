@@ -9,11 +9,7 @@ import org.apache.lucene.util.BytesRef;
 import java.io.IOException;
 import java.net.URI;
 import java.nio.file.Paths;
-import java.util.Collection;
 import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class InvertedIndexBuilder {
 

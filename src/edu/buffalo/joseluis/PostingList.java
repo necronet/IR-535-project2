@@ -5,6 +5,8 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static java.util.Comparator.comparingInt;
+
 public class PostingList {
 
     InvertedIndex index;
@@ -21,7 +23,7 @@ public class PostingList {
                                 .anyMatch(lt -> lt.equals(e.getKey().getTerm())))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
-        final Map<String, LinkedList<Integer>> postingList = new HashMap<>();
+        final Map<String, LinkedList<Integer>> postingList = new LinkedHashMap<>();
 
         String languages[] = {"text_en","text_es","text_fr"};
         for(IndexedTerm term : termLinkedListMap.keySet()) {
@@ -41,7 +43,18 @@ public class PostingList {
 
         }
 
-        return postingList;
+
+
+        return postingList.entrySet().stream()
+                .sorted(comparingInt(
+                                (Map.Entry<String, LinkedList<Integer>> e)->e.getValue().size()
+                        ).reversed())
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (a,b) -> {throw new AssertionError();},
+                        LinkedHashMap::new
+                ));
 
 
     }

@@ -1,14 +1,10 @@
 package edu.buffalo.joseluis;
 
-import java.util.List;
+import java.util.LinkedList;
+import java.util.Map;
 
-public class DocumentAtTimeOrQuery extends QueryRunner {
-    public DocumentAtTimeOrQuery(InvertedIndex index) {
-        super(index);
-    }
-
-    @Override
-    public void Query(List<String> terms) {
+public class DocumentAtTimeOrQuery {
+    public static void query(Map<String, LinkedList<Integer>> postingList) {
 
     }
 }

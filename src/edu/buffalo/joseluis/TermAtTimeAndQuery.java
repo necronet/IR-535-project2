@@ -1,14 +1,17 @@
 package edu.buffalo.joseluis;
 
-import java.util.List;
+import java.util.LinkedList;
+import java.util.Map;
 
-public class TermAtTimeAndQuery extends QueryRunner {
-    public TermAtTimeAndQuery(InvertedIndex index) {
-        super(index);
-    }
+public class TermAtTimeAndQuery  {
 
-    @Override
-    public void Query(List<String> terms) {
+    public static void query(Map<String, LinkedList<Integer>> postingList) {
+
+        for(String term: postingList.keySet()) {
+
+
+
+        }
 
     }
 }

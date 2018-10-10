@@ -18,85 +18,66 @@ public class Main {
 
         PostingList runner = new PostingList(invertedIndex);
 
-        for(LocalTerms term : terms){
-
-
+        for(LocalTerms term : terms) {
             Map<String, LinkedList<Integer>> postingList = runner.get(term);
             //LogPrinter.printPostingList(postingList);
-            startQuerying(postingList,term.getTerms());
-
-
+            //startQueryingTaatAnd(postingList,term.getTerms());
+            //startQueryingTaatOr(postingList,term.getTerms());
             //TermAtTimeOrQuery.query(postingList);
             //DocumentAtTimeAndQuery.query(postingList);
             //DocumentAtTimeOrQuery.query(postingList);
-
         }
 /*
         Map<String, LinkedList<Integer>> pl = new LinkedHashMap<>();
         LinkedList<Integer> list1 = new LinkedList<>();
 
-        list1.add(5236);
-        list1.add(5873);
-        list1.add(6396);
-        list1.add(6668);
-        list1.add(6768);
-        list1.add(6790);
-        list1.add(7481);
-        list1.add(7688);
-        list1.add(8031);
-        list1.add(8339);
-        list1.add(8581);
-        list1.add(8679);
-        list1.add(8768);
-        list1.add(9844);
-        list1.add(11647);
-        list1.add(11675);
-        list1.add(11904);
-
+        list1.add(5);
+        list1.add(13);
+        list1.add(21);
+        list1.add(25);
+        list1.add(31);
 
         LinkedList<Integer> list2 = new LinkedList<>();
-        list2.add(5027);
-        list2.add(5067);
-        list2.add(5156);
-        list2.add(5351);
-        list2.add(5463);
-        list2.add(5543);
-        list2.add(5592);
-        list2.add(5762);
-        list2.add(5772);
-        list2.add(6162);
-        list2.add(6325);
+        list2.add(25);
+        list2.add(27);
 
         pl.put("term0", list1);
         pl.put("term1", list2);
-//        pl.put("term3", l3);
 
-        startQuerying(pl);
-*/
+        startQueryingTaatOr(pl, null);*/
+        //System.out.println(TermAtTimeOrQuery.comparisonCount);
+
     }
 
-    private static void startQuerying(Map<String, LinkedList<Integer>> postingList, String[] orderedTerms) {
+    private static void startQueryingTaatAnd(Map<String, LinkedList<Integer>> postingList, String[] orderedTerms) {
 
         TermAtTimeAndQuery.reset();
-
         Iterator<String> terms = postingList.keySet().iterator();
         String firstTerm = terms.next();
         LinkedList<Integer> result = postingList.get(firstTerm);
 
         while(terms.hasNext() && result.size() > 0) {
             String term = terms.next();
-
             if(postingList.get(term).size() == 0) continue;
-
             result = TermAtTimeAndQuery.query(result, postingList.get(term));
+        }
+        LogPrinter.printTAATAnd(result, orderedTerms, TermAtTimeAndQuery.comparisonCount);
+    }
 
+    private static void startQueryingTaatOr(Map<String, LinkedList<Integer>> postingList, String[] orderedTerms) {
+
+        TermAtTimeOrQuery.reset();
+        Iterator<String> terms = postingList.keySet().iterator();
+        String firstTerm = terms.next();
+        LinkedList<Integer> result = postingList.get(firstTerm);
+
+        while(terms.hasNext() && result.size() > 0) {
+            String term = terms.next();
+            if(postingList.get(term).size() == 0) continue;
+            result = TermAtTimeOrQuery.query(result, postingList.get(term));
         }
 
-        //System.out.println("Final Answer "+result);
-
-        LogPrinter.printTAATAnd(result, orderedTerms, TermAtTimeAndQuery.comparisonCount);
-
-
+        LogPrinter.printTAATOr(result, orderedTerms, TermAtTimeOrQuery.comparisonCount);
     }
 }
 

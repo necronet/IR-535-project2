@@ -8,14 +8,19 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        String path = "file:///Users/necronet/Documents/repos/IR-535/project2/index";
-        InvertedIndex invertedIndex = InvertedIndexBuilder.build(path);
 
+        String path = "file:///Users/necronet/Documents/repos/IR-535/project2/index";
         String outputFile = "output.txt";
         String inputFile = "input.txt";
 
-        List<LocalTerms> terms = TermsLoader.load(inputFile);
+        if(args.length ==3) {
+            path = args[0];
+            outputFile = args[1];
+            inputFile= args[2];
+        }
 
+        InvertedIndex invertedIndex = InvertedIndexBuilder.build(path);
+        List<LocalTerms> terms = TermsLoader.load(inputFile);
         PostingList runner = new PostingList(invertedIndex);
 
         for(LocalTerms term : terms) {

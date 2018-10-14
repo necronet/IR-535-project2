@@ -25,9 +25,9 @@ public class Main {
 
         for(LocalTerms term : terms) {
             Map<String, LinkedList<Integer>> postingList = runner.get(term);
-            //LogPrinter.printPostingList(postingList);
-            //startQueryingTaatAnd(postingList,term.getTerms());
-            //startQueryingTaatOr(postingList,term.getTerms());
+            LogPrinter.printPostingList(postingList);
+            startQueryingTaatAnd(postingList,term.getTerms());
+            startQueryingTaatOr(postingList,term.getTerms());
             //TermAtTimeOrQuery.query(postingList);
             //DocumentAtTimeAndQuery.query(postingList);
             //DocumentAtTimeOrQuery.query(postingList);

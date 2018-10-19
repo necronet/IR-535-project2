@@ -20,9 +20,9 @@ public class LogPrinter {
         }
     }
 
-    public static void printPostingList(Map<String, LinkedList<Integer>> postingList) {
+    public static void printPostingList(Map<String, LinkedList<Integer>> postingList,String[] orderedTerms) {
 
-        for(String term : postingList.keySet()) {
+        for(String term : orderedTerms) {
             o.println("GetPostings");
             o.println(term);
             String postingDocs = postingList.get(term).stream()

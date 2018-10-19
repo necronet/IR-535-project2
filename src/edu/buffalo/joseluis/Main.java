@@ -11,7 +11,7 @@ public class Main {
         /*
         * Only for testing purposes
         */
-        String path = "../../IR-535/project2/index";
+        String path = "index";
         String outputFile = "output.txt";
         String inputFile = "input2.txt";
 
@@ -21,7 +21,7 @@ public class Main {
             inputFile = args[2];
         }
 
-        //LogPrinter.setOutputFile(outputFile);
+        LogPrinter.setOutputFile(outputFile);
         InvertedIndex invertedIndex = InvertedIndexBuilder.build(path);
         List<LocalTerms> terms = TermsLoader.load(inputFile);
         PostingList runner = new PostingList(invertedIndex);
@@ -31,7 +31,7 @@ public class Main {
 
             Map<String, LinkedList<Integer>> postingList = runner.get(term);
 
-            LogPrinter.printPostingList(postingList);
+            LogPrinter.printPostingList(postingList,term.getTerms());
             startQueryingTaatAnd(postingList,term.getTerms());
             startQueryingTaatOr(postingList,term.getTerms());
             startQueryingDaatAnd(postingList, term.getTerms());

@@ -46,7 +46,7 @@ public class PostingList {
         return postingList.entrySet().stream()
                 .sorted(comparingInt(
                                 (Map.Entry<String, LinkedList<Integer>> e)->e.getValue().size()
-                        ).reversed())
+                        ))
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
                         Map.Entry::getValue,

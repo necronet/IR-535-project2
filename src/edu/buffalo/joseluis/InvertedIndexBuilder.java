@@ -8,13 +8,21 @@ import org.apache.lucene.util.BytesRef;
 
 import java.io.IOException;
 import java.net.URI;
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetEncoder;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Iterator;
 
 public class InvertedIndexBuilder {
 
-    public static InvertedIndex build(String path) throws IOException {
-        Directory indexDirectory = FSDirectory.open(Paths.get(URI.create(path)));
+    public static InvertedIndex build(String pathStr) throws IOException {
+        Path path = FileSystems.getDefault().getPath(pathStr);
+        Directory indexDirectory = FSDirectory.open(path);
         IndexReader reader = DirectoryReader.open(indexDirectory);
 
         InvertedIndex invertedIndex = build(reader);
@@ -58,7 +66,6 @@ public class InvertedIndexBuilder {
             TermsEnum termsEnum = terms.iterator();
 
             BytesRef term;
-
             while ( (term = termsEnum.next()) != null) {
                 collectDocs(invertedIndex, termsEnum, term.utf8ToString(), field);
             }

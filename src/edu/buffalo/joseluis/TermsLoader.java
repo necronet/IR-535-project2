@@ -1,6 +1,8 @@
 package edu.buffalo.joseluis;
 
 import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -9,7 +11,6 @@ public class TermsLoader {
 
     public static List<LocalTerms> load(String file) {
         List<LocalTerms> terms = new ArrayList<>();
-
         try {
 
             BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
@@ -20,7 +21,9 @@ public class TermsLoader {
 
         } catch (IOException e) {
             System.err.println("Error accessing input file!");
+            e.printStackTrace();
         }
+
 
 
         return terms;

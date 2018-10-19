@@ -1,0 +1,20 @@
+TaatAnd
+alguÃ« accÃ¨ armÃ©
+Results: empty
+Number of documents in results: 0
+Number of comparisons: 0
+TaatOr
+alguÃ« accÃ¨ armÃ©
+Results: empty
+Number of documents in results: 0
+Number of comparisons: 0
+DaatAnd
+alguÃ« accÃ¨ armÃ©
+Results: empty
+Number of documents in results: 0
+Number of comparisons: 0
+DaatOr
+alguÃ« accÃ¨ armÃ©
+Results: empty
+Number of documents in results: 0
+Number of comparisons: 0
